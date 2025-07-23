@@ -41,9 +41,7 @@ create_wine_entries() {
         select(.browser_download_url | test($ext)) |
         {
             name: (.name | gsub($ext; "")),
-            url: .browser_download_url,
-            size: .size,
-            created_at: .created_at
+            url: .browser_download_url
         }
     ' "$input_file" | \
     if [[ -n "$exclude_patterns" ]]; then
@@ -145,8 +143,6 @@ JSON_CONTINUE6
 JSON_END
 
 } > "$OUTPUT_FILE"
-
-sed -i "s/TIMESTAMP_PLACEHOLDER/$(date -u +%Y-%m-%dT%H:%M:%SZ)/" "$OUTPUT_FILE"
 
 if jq empty "$OUTPUT_FILE" 2>/dev/null; then
     log "JSON файл создан успешно и валиден: $OUTPUT_FILE"
