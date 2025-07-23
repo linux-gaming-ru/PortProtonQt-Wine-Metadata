@@ -1,0 +1,45 @@
+name: Update Wine Metadata
+run-name: Fetch and Write wine metadata
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Запускаем каждый день в 3:00 UTC
+    - cron: '0 3 * * *'
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      metadata: ${{ steps.check.outputs.metadata }}
+    steps:
+      - uses: https://gitea.com/actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y jq curl git
+
+      - name: Generate wine metadata
+        run: bash generate_wine_metadata.sh
+
+      - name: Check changed files
+        id: check
+        env:
+          GITEA_TOKEN: ${{ secrets.GITEA_TOKEN }}
+          GITEA_ACTOR: ${{ gitea.actor }}
+          GITEA_SERVER: "git.linux-gaming.ru"
+          GITEA_REPOSITORY: ${{ gitea.repository }}
+        run: |
+          # Get changed files
+          git diff --name-only > changed_files.txt
+
+          echo "Changed files:"
+          cat changed_files.txt
+
+          if grep -q "wine_metadata.json" changed_files.txt; then
+            rm -v changed_files.txt
+            bash push-to-gitea.sh
+          fi

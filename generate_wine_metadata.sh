@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+
+OUTPUT_FILE="wine_metadata.json"
+TEMP_DIR="/tmp/wine_metadata_$$"
+mkdir -p "$TEMP_DIR"
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >&2
+}
+
+cleanup() {
+    rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
+
+fetch_github_releases() {
+    local repo="$1"
+    local output_file="$2"
+
+    log "Получение релизов из $repo..."
+
+    local url="https://api.github.com/repos/$repo/releases"
+
+    if ! curl -s -H "Accept: application/vnd.github.v3+json" "$url" > "$output_file"; then
+        log "Ошибка при получении релизов для $repo"
+        return 1
+    fi
+
+    local count=$(jq '. | length' "$output_file" 2>/dev/null || echo "0")
+    log "Получено данных для $repo: $count релизов"
+}
+
+create_wine_entries() {
+    local input_file="$1"
+    local file_extension="$2"
+    local exclude_patterns="$3"
+
+    jq -r --arg ext "$file_extension" '
+        .[] |
+        .assets[] |
+        select(.browser_download_url | test($ext)) |
+        {
+            name: (.name | gsub($ext; "")),
+            url: .browser_download_url,
+            size: .size,
+            created_at: .created_at
+        }
+    ' "$input_file" | \
+    if [[ -n "$exclude_patterns" ]]; then
+        jq -c --arg patterns "$exclude_patterns" '
+            select(.name | test($patterns) | not)
+        '
+    else
+        jq -c '.'
+    fi
+}
+
+log "Начало генерации метаданных..."
+
+# PROTON_GE
+fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json"
+create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action" > "$TEMP_DIR/proton_ge.json"
+
+# WINE_KRON4EK
+fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json"
+create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86|-wow64" > "$TEMP_DIR/wine_kron4ek.json"
+
+# PROTON_LG
+fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
+create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" > "$TEMP_DIR/proton_lg.json"
+
+# PROTON_CACHYOS
+fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "v3|znver4" > "$TEMP_DIR/proton_cachyos.json"
+
+# PROTON_SAREK
+fetch_github_releases "pythonlover02/Proton-Sarek" "$TEMP_DIR/proton_sarek_releases.json"
+create_wine_entries "$TEMP_DIR/proton_sarek_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/proton_sarek.json"
+
+# PROTON_EM
+fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
+create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_em.json"
+
+# Создание итогового JSON файла
+log "Создание итогового JSON файла..."
+
+{
+    cat << 'JSON_START'
+{
+  "proton_ge": [
+JSON_START
+
+    if [[ -s "$TEMP_DIR/proton_ge.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_ge.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE'
+  ],
+  "wine_kron4ek": [
+JSON_CONTINUE
+
+    if [[ -s "$TEMP_DIR/wine_kron4ek.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/wine_kron4ek.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE2'
+  ],
+  "proton_lg": [
+JSON_CONTINUE2
+
+    if [[ -s "$TEMP_DIR/proton_lg.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_lg.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE4'
+  ],
+  "proton_cachyos": [
+JSON_CONTINUE4
+
+    if [[ -s "$TEMP_DIR/proton_cachyos.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_cachyos.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE5'
+  ],
+  "proton_sarek": [
+JSON_CONTINUE5
+
+    if [[ -s "$TEMP_DIR/proton_sarek.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_sarek.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE6'
+  ],
+  "proton_em": [
+JSON_CONTINUE6
+
+    if [[ -s "$TEMP_DIR/proton_em.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_em.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_END'
+  ]
+}
+JSON_END
+
+} > "$OUTPUT_FILE"
+
+sed -i "s/TIMESTAMP_PLACEHOLDER/$(date -u +%Y-%m-%dT%H:%M:%SZ)/" "$OUTPUT_FILE"
+
+if jq empty "$OUTPUT_FILE" 2>/dev/null; then
+    log "JSON файл создан успешно и валиден: $OUTPUT_FILE"
+else
+    log "ОШИБКА: Созданный JSON файл невалиден!"
+    exit 1
+fi
+
+echo
+log "Статистика созданного файла:"
+for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_sarek proton_em; do
+    count=$(jq -r ".${category} | length" "$OUTPUT_FILE" 2>/dev/null || echo "0")
+    log "  $category: $count версий"
+done
+
+log "Генерация метаданных завершена: $OUTPUT_FILE"
