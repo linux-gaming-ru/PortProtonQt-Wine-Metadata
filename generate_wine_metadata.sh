@@ -61,7 +61,7 @@ create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-a
 
 # WINE_KRON4EK
 fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json"
-create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86|-wow64" > "$TEMP_DIR/wine_kron4ek.json"
+create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
 
 # PROTON_LG
 fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
@@ -69,7 +69,7 @@ create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
-create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "v3|znver4" > "$TEMP_DIR/proton_cachyos.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos.json"
 
 # PROTON_SAREK
 fetch_github_releases "pythonlover02/Proton-Sarek" "$TEMP_DIR/proton_sarek_releases.json"
