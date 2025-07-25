@@ -192,6 +192,7 @@
     {"name":"WINE_LG_10-10-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-10-1/WINE_LG_10-10-1.tar.xz"},
     {"name":"WINE_HYP_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_HYP_10-10/WINE_HYP_10-10.tar.xz"},
     {"name":"PROTON_LG_10-8","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-8/PROTON_LG_10-8.tar.xz"},
+    {"name":"PROTON_LG_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-10/PROTON_LG_10-10.tar.xz"},
     {"name":"PROTON_LG_10-4","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-4/PROTON_LG_10-4.tar.xz"},
     {"name":"WINE_LG_10-7","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-7/WINE_LG_10-7.tar.xz"},
     {"name":"WINE_LG_10-5","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-5/WINE_LG_10-5.tar.xz"},
