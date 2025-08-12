@@ -253,6 +253,8 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz"}
   ],
   "proton_sarek": [
+    {"name":"Proton-Sarek10-11-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-11/Proton-Sarek10-11-async.tar.gz"},
+    {"name":"Proton-Sarek10-11","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-11/Proton-Sarek10-11.tar.gz"},
     {"name":"Proton-Sarek10-8-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-8/Proton-Sarek10-8-async.tar.gz"},
     {"name":"Proton-Sarek10-8","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-8/Proton-Sarek10-8.tar.gz"},
     {"name":"Proton-Sarek10-4-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-4/Proton-Sarek10-4-async.tar.gz"},
