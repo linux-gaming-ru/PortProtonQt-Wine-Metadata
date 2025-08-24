@@ -1,5 +1,7 @@
 {
   "proton_ge": [
+    {"name":"GE-Proton10-13","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-13/GE-Proton10-13.tar.gz"},
+    {"name":"GE-Proton10-12","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-12/GE-Proton10-12.tar.gz"},
     {"name":"GE-Proton10-11","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-11/GE-Proton10-11.tar.gz"},
     {"name":"GE-Proton10-10","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-10/GE-Proton10-10.tar.gz"},
     {"name":"GE-Proton10-9","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-9/GE-Proton10-9.tar.gz"},
@@ -27,11 +29,16 @@
     {"name":"GE-Proton9-13","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-13/GE-Proton9-13.tar.gz"},
     {"name":"GE-Proton9-12","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-12/GE-Proton9-12.tar.gz"},
     {"name":"GE-Proton9-11","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-11/GE-Proton9-11.tar.gz"},
-    {"name":"GE-Proton9-10","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-10/GE-Proton9-10.tar.gz"},
-    {"name":"GE-Proton9-9","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-9/GE-Proton9-9.tar.gz"},
-    {"name":"GE-Proton9-8","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-8/GE-Proton9-8.tar.gz"}
+    {"name":"GE-Proton9-10","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-10/GE-Proton9-10.tar.gz"}
   ],
   "wine_kron4ek": [
+    {"name":"wine-10.13-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-amd64-wow64.tar.xz"},
+    {"name":"wine-10.13-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-amd64.tar.xz"},
+    {"name":"wine-10.13-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-staging-amd64-wow64.tar.xz"},
+    {"name":"wine-10.13-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-staging-amd64.tar.xz"},
+    {"name":"wine-10.13-staging-tkg-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-staging-tkg-amd64-wow64.tar.xz"},
+    {"name":"wine-10.13-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-staging-tkg-amd64.tar.xz"},
+    {"name":"wine-10.13-staging-tkg-ntsync-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.13/wine-10.13-staging-tkg-ntsync-amd64-wow64.tar.xz"},
     {"name":"wine-proton-10.0-2-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/proton-10.0-2/wine-proton-10.0-2-amd64-wow64.tar.xz"},
     {"name":"wine-proton-10.0-2-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/proton-10.0-2/wine-proton-10.0-2-amd64.tar.xz"},
     {"name":"wine-10.12-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.12/wine-10.12-amd64-wow64.tar.xz"},
@@ -180,10 +187,7 @@
     {"name":"wine-9.15-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.15/wine-9.15-staging-tkg-amd64.tar.xz"},
     {"name":"wine-9.14-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.14/wine-9.14-amd64.tar.xz"},
     {"name":"wine-9.14-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.14/wine-9.14-staging-amd64.tar.xz"},
-    {"name":"wine-9.14-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.14/wine-9.14-staging-tkg-amd64.tar.xz"},
-    {"name":"wine-9.13-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.13/wine-9.13-amd64.tar.xz"},
-    {"name":"wine-9.13-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.13/wine-9.13-staging-amd64.tar.xz"},
-    {"name":"wine-9.13-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.13/wine-9.13-staging-tkg-amd64.tar.xz"}
+    {"name":"wine-9.14-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.14/wine-9.14-staging-tkg-amd64.tar.xz"}
   ],
   "proton_lg": [
     {"name":"WINE_LG_10-12","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-12/WINE_LG_10-12.tar.xz"},
@@ -213,6 +217,10 @@
     {"name":"PROTON_LG_9-4","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-4/PROTON_LG_9-4.tar.xz"}
   ],
   "proton_cachyos": [
+    {"name":"proton-cachyos-10.0-20250819-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250819-slr/proton-cachyos-10.0-20250819-slr-x86_64.tar.xz"},
+    {"name":"proton-cachyos-10.0-20250819-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250819-slr/proton-cachyos-10.0-20250819-slr-x86_64_v3.tar.xz"},
+    {"name":"proton-cachyos-10.0-20250807-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250807-slr/proton-cachyos-10.0-20250807-slr-x86_64.tar.xz"},
+    {"name":"proton-cachyos-10.0-20250807-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250807-slr/proton-cachyos-10.0-20250807-slr-x86_64_v3.tar.xz"},
     {"name":"proton-cachyos-10.0-20250714-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250714-slr/proton-cachyos-10.0-20250714-slr-x86_64.tar.xz"},
     {"name":"proton-cachyos-10.0-20250714-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250714-slr/proton-cachyos-10.0-20250714-slr-x86_64_v3.tar.xz"},
     {"name":"proton-cachyos-10.0-20250702-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250702-slr/proton-cachyos-10.0-20250702-slr-x86_64.tar.xz"},
@@ -253,6 +261,8 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz"}
   ],
   "proton_sarek": [
+    {"name":"Proton-Sarek10-12-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-12/Proton-Sarek10-12-async.tar.gz"},
+    {"name":"Proton-Sarek10-12","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-12/Proton-Sarek10-12.tar.gz"},
     {"name":"Proton-Sarek10-11-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-11/Proton-Sarek10-11-async.tar.gz"},
     {"name":"Proton-Sarek10-11","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-11/Proton-Sarek10-11.tar.gz"},
     {"name":"Proton-Sarek10-8-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-8/Proton-Sarek10-8-async.tar.gz"},
