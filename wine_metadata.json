@@ -195,6 +195,7 @@
     {"name":"WINE_LG_10-10-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-10-1/WINE_LG_10-10-1.tar.xz"},
     {"name":"WINE_HYP_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_HYP_10-10/WINE_HYP_10-10.tar.xz"},
     {"name":"PROTON_LG_10-8","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-8/PROTON_LG_10-8.tar.xz"},
+    {"name":"PROTON_LG_10-15","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-15/PROTON_LG_10-15.tar.xz"},
     {"name":"PROTON_LG_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-10/PROTON_LG_10-10.tar.xz"},
     {"name":"PROTON_LG_10-4","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-4/PROTON_LG_10-4.tar.xz"},
     {"name":"WINE_LG_10-7","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-7/WINE_LG_10-7.tar.xz"},
@@ -212,8 +213,7 @@
     {"name":"WINE_LG_9-11","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-11/WINE_LG_9-11.tar.xz"},
     {"name":"PROTON_LG_9-7","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-7/PROTON_LG_9-7.tar.xz"},
     {"name":"WINE_LG_9-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-10/WINE_LG_9-10.tar.xz"},
-    {"name":"WINE_LG_9-9","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-9/WINE_LG_9-9.tar.xz"},
-    {"name":"PROTON_LG_9-5-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-5-1/PROTON_LG_9-5-1.tar.xz"}
+    {"name":"WINE_LG_9-9","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-9/WINE_LG_9-9.tar.xz"}
   ],
   "proton_cachyos": [
     {"name":"proton-cachyos-10.0-20250820-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250820-slr/proton-cachyos-10.0-20250820-slr-x86_64.tar.xz"},
@@ -322,6 +322,7 @@
     {"name":"Sarek9-13","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13/Sarek9-13.tar.gz"}
   ],
   "proton_em": [
+    {"name":"proton-EM-10.0-2E","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2E/proton-EM-10.0-2E.tar.xz"},
     {"name":"proton-EM-10.0-2D","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2D/proton-EM-10.0-2D.tar.xz"},
     {"name":"proton-EM-10.0-2C","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2C/proton-EM-10.0-2C.tar.xz"},
     {"name":"proton-EM-10.0-2B","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2B/proton-EM-10.0-2B.tar.xz"},
