@@ -32,6 +32,13 @@
     {"name":"GE-Proton9-12","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-12/GE-Proton9-12.tar.gz"}
   ],
   "wine_kron4ek": [
+    {"name":"wine-10.15-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-amd64-wow64.tar.xz"},
+    {"name":"wine-10.15-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-amd64.tar.xz"},
+    {"name":"wine-10.15-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-staging-amd64-wow64.tar.xz"},
+    {"name":"wine-10.15-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-staging-amd64.tar.xz"},
+    {"name":"wine-10.15-staging-tkg-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-staging-tkg-amd64-wow64.tar.xz"},
+    {"name":"wine-10.15-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-staging-tkg-amd64.tar.xz"},
+    {"name":"wine-10.15-staging-tkg-ntsync-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.15/wine-10.15-staging-tkg-ntsync-amd64-wow64.tar.xz"},
     {"name":"wine-10.14-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.14/wine-10.14-amd64-wow64.tar.xz"},
     {"name":"wine-10.14-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.14/wine-10.14-amd64.tar.xz"},
     {"name":"wine-10.14-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.14/wine-10.14-staging-amd64-wow64.tar.xz"},
@@ -188,10 +195,7 @@
     {"name":"wine-proton-9.0-3-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/proton-9.0-3/wine-proton-9.0-3-amd64.tar.xz"},
     {"name":"wine-9.16-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.16/wine-9.16-amd64.tar.xz"},
     {"name":"wine-9.16-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.16/wine-9.16-staging-amd64.tar.xz"},
-    {"name":"wine-9.16-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.16/wine-9.16-staging-tkg-amd64.tar.xz"},
-    {"name":"wine-9.15-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.15/wine-9.15-amd64.tar.xz"},
-    {"name":"wine-9.15-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.15/wine-9.15-staging-amd64.tar.xz"},
-    {"name":"wine-9.15-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.15/wine-9.15-staging-tkg-amd64.tar.xz"}
+    {"name":"wine-9.16-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.16/wine-9.16-staging-tkg-amd64.tar.xz"}
   ],
   "proton_lg": [
     {"name":"WINE_LG_10-14","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-14/WINE_LG_10-14.tar.xz"},
