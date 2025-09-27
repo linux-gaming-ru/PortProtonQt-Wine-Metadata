@@ -344,6 +344,7 @@
     {"name":"Sarek9-13","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13/Sarek9-13.tar.gz"}
   ],
   "proton_em": [
+    {"name":"proton-EM-10.0-2F","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2F/proton-EM-10.0-2F.tar.xz"},
     {"name":"proton-EM-10.0-2E","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2E/proton-EM-10.0-2E.tar.xz"},
     {"name":"proton-EM-10.0-2D","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2D/proton-EM-10.0-2D.tar.xz"},
     {"name":"proton-EM-10.0-2C","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2C/proton-EM-10.0-2C.tar.xz"},
