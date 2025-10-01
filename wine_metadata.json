@@ -198,12 +198,14 @@
     {"name":"wine-9.16-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/9.16/wine-9.16-staging-tkg-amd64.tar.xz"}
   ],
   "proton_lg": [
+    {"name":"WINE_LG_10-15","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-15/WINE_LG_10-15.tar.xz"},
     {"name":"WINE_LG_10-14","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-14/WINE_LG_10-14.tar.xz"},
     {"name":"WINE_LG_10-12","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-12/WINE_LG_10-12.tar.xz"},
     {"name":"WINE_LG_10-11","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-11/WINE_LG_10-11.tar.xz"},
     {"name":"WINE_LG_10-10-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-10-1/WINE_LG_10-10-1.tar.xz"},
     {"name":"WINE_HYP_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_HYP_10-10/WINE_HYP_10-10.tar.xz"},
     {"name":"PROTON_LG_10-8","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-8/PROTON_LG_10-8.tar.xz"},
+    {"name":"PROTON_LG_10-17","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-17/PROTON_LG_10-17.tar.xz"},
     {"name":"PROTON_LG_10-15","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-15/PROTON_LG_10-15.tar.xz"},
     {"name":"PROTON_LG_10-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-10/PROTON_LG_10-10.tar.xz"},
     {"name":"PROTON_LG_10-4","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-4/PROTON_LG_10-4.tar.xz"},
@@ -220,8 +222,7 @@
     {"name":"WINE_LG_9-12","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-12/WINE_LG_9-12.tar.xz"},
     {"name":"PROTON_LG_9-11","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-11/PROTON_LG_9-11.tar.xz"},
     {"name":"WINE_LG_9-11","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-11/WINE_LG_9-11.tar.xz"},
-    {"name":"PROTON_LG_9-7","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-7/PROTON_LG_9-7.tar.xz"},
-    {"name":"WINE_LG_9-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_9-10/WINE_LG_9-10.tar.xz"}
+    {"name":"PROTON_LG_9-7","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_9-7/PROTON_LG_9-7.tar.xz"}
   ],
   "proton_cachyos": [
     {"name":"proton-cachyos-10.0-20250919-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20250919-slr/proton-cachyos-10.0-20250919-slr-x86_64.tar.xz"},
