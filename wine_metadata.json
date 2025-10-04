@@ -283,6 +283,8 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz"}
   ],
   "proton_sarek": [
+    {"name":"Proton-Sarek10-17-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-17/Proton-Sarek10-17-async.tar.gz"},
+    {"name":"Proton-Sarek10-17","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-17/Proton-Sarek10-17.tar.gz"},
     {"name":"Proton-Sarek10-15-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-15/Proton-Sarek10-15-async.tar.gz"},
     {"name":"Proton-Sarek10-15","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-15/Proton-Sarek10-15.tar.gz"},
     {"name":"Proton-Sarek10-12-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Proton-Sarek10-12/Proton-Sarek10-12-async.tar.gz"},
@@ -340,9 +342,7 @@
     {"name":"Sarek9-14-async","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-14/Sarek9-14-async.tar.gz"},
     {"name":"Sarek9-14","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-14/Sarek9-14.tar.gz"},
     {"name":"Sarek9-13-r1","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13-r1/Sarek9-13-r1.tar.gz"},
-    {"name":"Sarek9-13-testing","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13-r1/Sarek9-13-testing.tar.gz"},
-    {"name":"Sarek9-13-testing","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13/Sarek9-13-testing.tar.gz"},
-    {"name":"Sarek9-13","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13/Sarek9-13.tar.gz"}
+    {"name":"Sarek9-13-testing","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13-r1/Sarek9-13-testing.tar.gz"}
   ],
   "proton_em": [
     {"name":"proton-EM-10.0-2F","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2F/proton-EM-10.0-2F.tar.xz"},
