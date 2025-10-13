@@ -1,5 +1,6 @@
 {
   "proton_ge": [
+    {"name":"GE-Proton10-18","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-18/GE-Proton10-18.tar.gz"},
     {"name":"GE-Proton10-17","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-17/GE-Proton10-17.tar.gz"},
     {"name":"GE-Proton10-16","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-16/GE-Proton10-16.tar.gz"},
     {"name":"GE-Proton10-15","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-15/GE-Proton10-15.tar.gz"},
@@ -28,8 +29,7 @@
     {"name":"GE-Proton9-18","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-18/GE-Proton9-18.tar.gz"},
     {"name":"GE-Proton9-17","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-17/GE-Proton9-17.tar.gz"},
     {"name":"GE-Proton9-16","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-16/GE-Proton9-16.tar.gz"},
-    {"name":"GE-Proton9-15","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-15/GE-Proton9-15.tar.gz"},
-    {"name":"GE-Proton9-14","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-14/GE-Proton9-14.tar.gz"}
+    {"name":"GE-Proton9-15","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-15/GE-Proton9-15.tar.gz"}
   ],
   "wine_kron4ek": [
     {"name":"wine-10.16-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/10.16/wine-10.16-amd64-wow64.tar.xz"},
