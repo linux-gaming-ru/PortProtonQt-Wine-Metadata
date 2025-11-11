@@ -379,6 +379,7 @@
     {"name":"Sarek9-13-testing","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13-r1/Sarek9-13-testing.tar.gz"}
   ],
   "proton_em": [
+    {"name":"proton-EM-10.0-31","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-31/proton-EM-10.0-31.tar.xz"},
     {"name":"proton-EM-10.0-30","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-30/proton-EM-10.0-30.tar.xz"},
     {"name":"proton-EM-10.0-2F","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2F/proton-EM-10.0-2F.tar.xz"},
     {"name":"proton-EM-10.0-2E","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-2E/proton-EM-10.0-2E.tar.xz"},
@@ -407,7 +408,6 @@
     {"name":"proton-EM-10.0-10","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-10/proton-EM-10.0-10.tar.xz"},
     {"name":"proton-EM-10.0-7","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-7/proton-EM-10.0-7.tar.xz"},
     {"name":"proton-EM-10.0-6","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-6/proton-EM-10.0-6.tar.xz"},
-    {"name":"proton-EM-10.0-5","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-5/proton-EM-10.0-5.tar.xz"},
-    {"name":"proton-EM-10.0-4","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-4/proton-EM-10.0-4.tar.xz"}
+    {"name":"proton-EM-10.0-5","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-5/proton-EM-10.0-5.tar.xz"}
   ]
 }
