@@ -79,6 +79,10 @@ create_wine_entries "$TEMP_DIR/proton_sarek_releases.json" "\\.tar\\.gz$" "" > "
 fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
 create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_em.json"
 
+# GDK_PROTON
+fetch_github_releases "Weather-OS/GDK-Proton" "$TEMP_DIR/gdk_proton_releases.json"
+create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/gdk_proton.json"
+
 # Создание итогового JSON файла
 log "Создание итогового JSON файла..."
 
@@ -137,6 +141,15 @@ JSON_CONTINUE6
         sed '$!s/$/,/' "$TEMP_DIR/proton_em.json" | sed 's/^/    /'
     fi
 
+    cat << 'JSON_CONTINUE7'
+  ],
+  "gdk_proton": [
+JSON_CONTINUE7
+
+    if [[ -s "$TEMP_DIR/gdk_proton.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/gdk_proton.json" | sed 's/^/    /'
+    fi
+
     cat << 'JSON_END'
   ]
 }
@@ -153,7 +166,7 @@ fi
 
 echo
 log "Статистика созданного файла:"
-for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_sarek proton_em; do
+for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_sarek proton_em gdk_proton; do
     count=$(jq -r ".${category} | length" "$OUTPUT_FILE" 2>/dev/null || echo "0")
     log "  $category: $count версий"
 done
