@@ -81,7 +81,7 @@ create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TE
 
 # GDK_PROTON
 fetch_github_releases "Weather-OS/GDK-Proton" "$TEMP_DIR/gdk_proton_releases.json"
-create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/gdk_proton.json"
+create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/gdk_proton.json"
 
 # Создание итогового JSON файла
 log "Создание итогового JSON файла..."

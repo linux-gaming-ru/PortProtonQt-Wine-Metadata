@@ -411,5 +411,6 @@
     {"name":"proton-EM-10.0-6","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-6/proton-EM-10.0-6.tar.xz"}
   ],
   "gdk_proton": [
+    {"name":"GE-Proton10-25","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release/GE-Proton10-25.tar.gz"}
   ]
 }
