@@ -409,5 +409,7 @@
     {"name":"proton-EM-10.0-10","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-10/proton-EM-10.0-10.tar.xz"},
     {"name":"proton-EM-10.0-7","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-7/proton-EM-10.0-7.tar.xz"},
     {"name":"proton-EM-10.0-6","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-6/proton-EM-10.0-6.tar.xz"}
+  ],
+  "gdk_proton": [
   ]
 }
