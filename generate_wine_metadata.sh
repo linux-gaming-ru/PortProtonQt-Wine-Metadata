@@ -35,13 +35,23 @@ create_wine_entries() {
     local file_extension="$2"
     local exclude_patterns="$3"
 
-    jq -r --arg ext "$file_extension" '
+    jq --arg ext "$file_extension" '
+        def human_size:
+          if . == 0 then "0 B"
+          elif . < 1024 then "\(.).0 B"
+          elif . < 1024*1024 then "\((./1024)|floor).\( ((./1024 * 10 % 10)|floor)) KiB"
+          elif . < 1024*1024*1024 then "\((./(1024*1024))|floor).\( ((./(1024*1024) * 10 % 10)|floor)) MiB"
+          elif . < 1024*1024*1024*1024 then "\((./(1024*1024*1024))|floor).\( ((./(1024*1024*1024) * 10 % 10)|floor)) GiB"
+          else "\((./(1024*1024*1024*1024))|floor).\( ((./(1024*1024*1024*1024) * 10 % 10)|floor)) TiB"
+          end;
+
         .[] |
         .assets[] |
         select(.browser_download_url | test($ext)) |
         {
             name: (.name | gsub($ext; "")),
-            url: .browser_download_url
+            url: .browser_download_url,
+            size_human: (.size | human_size)
         }
     ' "$input_file" | \
     if [[ -n "$exclude_patterns" ]]; then
