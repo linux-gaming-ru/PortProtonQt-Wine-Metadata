@@ -4,32 +4,94 @@ OUTPUT_FILE="wine_metadata.json"
 TEMP_DIR="/tmp/wine_metadata_$$"
 mkdir -p "$TEMP_DIR"
 
+# Выводит сообщение с временной меткой в stderr
+# Аргументы: $1 - текст сообщения
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >&2
 }
 
+# Удаляет временную директорию при завершении скрипта
 cleanup() {
     rm -rf "$TEMP_DIR"
 }
 trap cleanup EXIT
 
+# Получает все релизы из GitHub репозитория с поддержкой пагинации
+# Аргументы:
+#   $1 - репозиторий в формате "owner/repo"
+#   $2 - путь к выходному JSON файлу
+#   $3 - (опционально) regex-паттерн для остановки загрузки (релиз с паттерном не включается)
 fetch_github_releases() {
     local repo="$1"
     local output_file="$2"
+    local stop_pattern="${3:-}"
 
     log "Получение релизов из $repo..."
 
-    local url="https://api.github.com/repos/$repo/releases"
+    local page=1
+    local per_page=100
+    local all_releases="[]"
+    local should_stop=false
 
-    if ! curl -s -H "Accept: application/vnd.github.v3+json" "$url" > "$output_file"; then
-        log "Ошибка при получении релизов для $repo"
-        return 1
-    fi
+    while true; do
+        local url="https://api.github.com/repos/$repo/releases?per_page=${per_page}&page=${page}"
+        local temp_file="$TEMP_DIR/page_${page}.json"
+
+        if ! curl -s -H "Accept: application/vnd.github.v3+json" "$url" > "$temp_file"; then
+            log "Ошибка при получении релизов для $repo (страница $page)"
+            return 1
+        fi
+
+        local page_count=$(jq '. | length' "$temp_file" 2>/dev/null || echo "0")
+
+        if [[ "$page_count" -eq 0 ]]; then
+            rm -f "$temp_file"
+            break
+        fi
+
+        if [[ -n "$stop_pattern" ]]; then
+            local filtered_releases=$(jq --arg pattern "$stop_pattern" '
+                . as $releases |
+                (map(.tag_name) | to_entries | map(select(.value | test($pattern; "i"))) | .[0].key // -1) as $stop_idx |
+                if $stop_idx >= 0 then
+                    $releases[0:$stop_idx]
+                else
+                    $releases
+                end
+            ' "$temp_file")
+
+            local filtered_count=$(echo "$filtered_releases" | jq 'length')
+            all_releases=$(echo "$all_releases" "$filtered_releases" | jq -s '.[0] + .[1]')
+
+            if [[ "$filtered_count" -lt "$page_count" ]]; then
+                log "Достигнут стоп-паттерн '$stop_pattern' на странице $page"
+                should_stop=true
+            fi
+        else
+            all_releases=$(echo "$all_releases" | jq --slurpfile page "$temp_file" '. + $page[0]')
+        fi
+
+        rm -f "$temp_file"
+        log "  Страница $page: $page_count релизов"
+
+        if [[ "$should_stop" == "true" ]] || [[ "$page_count" -lt "$per_page" ]]; then
+            break
+        fi
+
+        ((page++))
+    done
+
+    echo "$all_releases" > "$output_file"
 
     local count=$(jq '. | length' "$output_file" 2>/dev/null || echo "0")
-    log "Получено данных для $repo: $count релизов"
+    log "Получено данных для $repo: $count релизов (всего страниц: $page)"
 }
 
+# Преобразует JSON с релизами GitHub в записи wine с именем, URL и размером
+# Аргументы:
+#   $1 - путь к входному JSON файлу с релизами
+#   $2 - regex расширения файла для фильтрации ассетов (например "\\.tar\\.gz$")
+#   $3 - (опционально) regex-паттерн для исключения ассетов по имени
 create_wine_entries() {
     local input_file="$1"
     local file_extension="$2"
@@ -66,15 +128,15 @@ create_wine_entries() {
 log "Начало генерации метаданных..."
 
 # PROTON_GE
-fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json"
+fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json" "GE-Proton7-"
 create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action" > "$TEMP_DIR/proton_ge.json"
 
 # WINE_KRON4EK
-fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json"
+fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json" "^7\\."
 create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
 
 # PROTON_LG
-fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
+fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json" "_7[-.]"
 create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" > "$TEMP_DIR/proton_lg.json"
 
 # PROTON_CACHYOS
