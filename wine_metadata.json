@@ -701,6 +701,7 @@
     {"name":"proton-em","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/em-10.0-1/proton-em.tar.xz","size_human":"310.2 MiB"}
   ],
   "gdk_proton": [
+    {"name":"GDK-Proton10-29","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release10-29/GDK-Proton10-29.tar.gz","size_human":"499.1 MiB"},
     {"name":"GE-Proton10-25","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release/GE-Proton10-25.tar.gz","size_human":"493.7 MiB"}
   ]
 }
