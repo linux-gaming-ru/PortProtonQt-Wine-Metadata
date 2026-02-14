@@ -452,6 +452,7 @@
   "proton_lg": [
     {"name":"WINE_LG_11-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_11-1/WINE_LG_11-1.tar.xz","size_human":"185.7 MiB"},
     {"name":"PROTON_STEAM_10-0-3","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_STEAM_10-0-3/PROTON_STEAM_10-0-3.tar.xz","size_human":"264.5 MiB"},
+    {"name":"PROTON_LG_10-30","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-30/PROTON_LG_10-30.tar.xz","size_human":"220.1 MiB"},
     {"name":"PROTON_LG_10-28","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-28/PROTON_LG_10-28.tar.xz","size_human":"217.9 MiB"},
     {"name":"WINE_LG_10-20","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_10-20/WINE_LG_10-20.tar.xz","size_human":"185.7 MiB"},
     {"name":"PROTON_LG_10-25","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_LG_10-25/PROTON_LG_10-25.tar.xz","size_human":"217.2 MiB"},
