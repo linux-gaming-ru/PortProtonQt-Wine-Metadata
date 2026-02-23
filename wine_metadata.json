@@ -92,6 +92,12 @@
     {"name":"GE-Proton8-1","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton8-1/GE-Proton8-1.tar.gz","size_human":"416.4 MiB"}
   ],
   "wine_kron4ek": [
+    {"name":"wine-11.3-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-amd64-wow64.tar.xz","size_human":"70.1 MiB"},
+    {"name":"wine-11.3-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-amd64.tar.xz","size_human":"72.4 MiB"},
+    {"name":"wine-11.3-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-staging-amd64-wow64.tar.xz","size_human":"71.8 MiB"},
+    {"name":"wine-11.3-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-staging-amd64.tar.xz","size_human":"74.0 MiB"},
+    {"name":"wine-11.3-staging-tkg-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-staging-tkg-amd64-wow64.tar.xz","size_human":"71.7 MiB"},
+    {"name":"wine-11.3-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.3/wine-11.3-staging-tkg-amd64.tar.xz","size_human":"74.1 MiB"},
     {"name":"wine-11.2-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.2/wine-11.2-amd64-wow64.tar.xz","size_human":"69.7 MiB"},
     {"name":"wine-11.2-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.2/wine-11.2-amd64.tar.xz","size_human":"72.0 MiB"},
     {"name":"wine-11.2-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.2/wine-11.2-staging-amd64-wow64.tar.xz","size_human":"71.6 MiB"},
@@ -723,6 +729,7 @@
     {"name":"proton-em","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/em-10.0-1/proton-em.tar.xz","size_human":"310.2 MiB"}
   ],
   "gdk_proton": [
+    {"name":"GDK-Proton10-32","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release10-32/GDK-Proton10-32.tar.gz","size_human":"500.4 MiB"},
     {"name":"GDK-Proton10-29","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release10-29/GDK-Proton10-29.tar.gz","size_human":"499.1 MiB"},
     {"name":"GE-Proton10-25","url":"https://github.com/Weather-OS/GDK-Proton/releases/download/release/GE-Proton10-25.tar.gz","size_human":"493.7 MiB"}
   ]
