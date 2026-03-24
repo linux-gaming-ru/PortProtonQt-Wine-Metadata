@@ -173,7 +173,7 @@ create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
-create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver|arm64" > "$TEMP_DIR/proton_cachyos.json"
 
 # PROTON_SAREK
 fetch_github_releases "pythonlover02/Proton-Sarek" "$TEMP_DIR/proton_sarek_releases.json"
