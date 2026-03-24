@@ -125,6 +125,28 @@ create_wine_entries() {
     fi
 }
 
+# Получает список доступных в облаке сборок Linux Gaming для proton_lg секции.
+# Оставляет только ожидаемые типы и версии >= 8, чтобы не включать ломающие префикс версии.
+fetch_cloud_lg_allowlist() {
+    local output_file="$1"
+    local cloud_url="https://cloud.linux-gaming.ru/"
+
+    log "Получение списка PROTON/WINE LG из $cloud_url..."
+
+    if ! curl -fsSL "$cloud_url" | \
+        grep -oE "portproton/(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_[^'\"<>]+\\.tar\\.xz" | \
+        sed -E 's#^portproton/##; s#\.tar\.xz$##' | \
+        grep -E "_(8|9|[1-9][0-9])([.-]|$)" | \
+        sort -u > "$output_file"; then
+        log "Ошибка при получении списка версий с $cloud_url"
+        return 1
+    fi
+
+    local count
+    count=$(wc -l < "$output_file" | tr -d ' ')
+    log "Получено версий из cloud для proton_lg: $count"
+}
+
 log "Начало генерации метаданных..."
 
 # PROTON_GE
@@ -136,8 +158,18 @@ fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.jso
 create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
 
 # PROTON_LG
-fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json" "_7[-.]"
-create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" > "$TEMP_DIR/proton_lg.json"
+fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
+fetch_cloud_lg_allowlist "$TEMP_DIR/cloud_lg_allowlist.txt"
+jq -R -s 'split("\n") | map(select(length > 0))' "$TEMP_DIR/cloud_lg_allowlist.txt" > "$TEMP_DIR/cloud_lg_allowlist.json"
+create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" | \
+    jq -c '
+        # Защитный regex: только нужные семейства и только версии >=8.
+        select(.name | test("^(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_(8|9|[1-9][0-9])([.-]|$)"))
+    ' | \
+    jq -c --slurpfile allow "$TEMP_DIR/cloud_lg_allowlist.json" '
+        # Финальный фильтр: в JSON остаются только версии, реально присутствующие в cloud.
+        select(.name as $name | ($allow[0] | index($name)) != null)
+    ' > "$TEMP_DIR/proton_lg.json"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
