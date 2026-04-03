@@ -515,6 +515,9 @@
     {"name":"WINE_LG_8-18-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_8-18-1/WINE_LG_8-18-1.tar.xz","size_human":"185.5 MiB"}
   ],
   "proton_cachyos": [
+    {"name":"proton-cachyos-10.0-20260330-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260330-slr/proton-cachyos-10.0-20260330-slr-x86_64.tar.xz","size_human":"295.7 MiB"},
+    {"name":"proton-cachyos-10.0-20260330-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260330-slr/proton-cachyos-10.0-20260330-slr-x86_64_v3.tar.xz","size_human":"295.6 MiB"},
+    {"name":"proton-cachyos-10.0-20260330-slr-x86_64_v4","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260330-slr/proton-cachyos-10.0-20260330-slr-x86_64_v4.tar.xz","size_human":"295.5 MiB"},
     {"name":"proton-cachyos-10.0-20260324-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260324-slr/proton-cachyos-10.0-20260324-slr-x86_64.tar.xz","size_human":"296.6 MiB"},
     {"name":"proton-cachyos-10.0-20260324-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260324-slr/proton-cachyos-10.0-20260324-slr-x86_64_v3.tar.xz","size_human":"296.5 MiB"},
     {"name":"proton-cachyos-10.0-20260324-slr-x86_64_v4","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-20260324-slr/proton-cachyos-10.0-20260324-slr-x86_64_v4.tar.xz","size_human":"296.4 MiB"},
