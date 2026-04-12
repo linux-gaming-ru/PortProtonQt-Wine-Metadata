@@ -728,6 +728,7 @@
     {"name":"Sarek9-13","url":"https://github.com/pythonlover02/Proton-Sarek/releases/download/Sarek9-13/Sarek9-13.tar.gz","size_human":"409.9 MiB"}
   ],
   "proton_em": [
+    {"name":"proton-EM-10.0-37-HDR","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-37-HDR/proton-EM-10.0-37-HDR.tar.xz","size_human":"327.7 MiB"},
     {"name":"proton-EM-10.0-36-HDRTEST","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-36-HDRTEST/proton-EM-10.0-36-HDRTEST.tar.xz","size_human":"377.9 MiB"},
     {"name":"proton-EM-10.0-35-HDRTEST","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-35-HDRTEST/proton-EM-10.0-35-HDRTEST.tar.xz","size_human":"377.7 MiB"},
     {"name":"proton-EM-10.0-34","url":"https://github.com/Etaash-mathamsetty/Proton/releases/download/EM-10.0-34/proton-EM-10.0-34.tar.xz","size_human":"377.6 MiB"},
