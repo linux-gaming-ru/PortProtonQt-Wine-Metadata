@@ -23,9 +23,7 @@ jobs:
           sudo apt install -y jq curl git
 
       - name: Generate wine metadata
-        run: |
-          bash generate_wine_metadata.sh
-          bash generate_macos_wine_metadata.sh
+        run: bash generate_wine_metadata.sh
 
       - name: Check changed files
         id: check

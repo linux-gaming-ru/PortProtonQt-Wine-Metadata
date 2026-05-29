@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 OUTPUT_FILE="wine_metadata.json"
+MACOS_OUTPUT_FILE="macos_wine_metadata.json"
 TEMP_DIR="/tmp/wine_metadata_$$"
 mkdir -p "$TEMP_DIR"
 
@@ -37,7 +39,7 @@ fetch_github_releases() {
         local url="https://api.github.com/repos/$repo/releases?per_page=${per_page}&page=${page}"
         local temp_file="$TEMP_DIR/page_${page}.json"
 
-        if ! curl -s -H "Accept: application/vnd.github.v3+json" "$url" > "$temp_file"; then
+        if ! curl -fsSL -H "Accept: application/vnd.github.v3+json" "$url" > "$temp_file"; then
             log "Ошибка при получении релизов для $repo (страница $page)"
             return 1
         fi
@@ -276,3 +278,82 @@ for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_sarek pro
 done
 
 log "Генерация метаданных завершена: $OUTPUT_FILE"
+
+log "Начало генерации macOS метаданных..."
+
+# WINE_CROSSOVER
+fetch_github_releases "Heroic-Games-Launcher/wine-crossover" "$TEMP_DIR/wine_crossover_releases.json"
+create_wine_entries "$TEMP_DIR/wine_crossover_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/wine_crossover.json"
+
+# WINE_STAGING_MACOS
+fetch_github_releases "Gcenx/macOS_Wine_builds" "$TEMP_DIR/wine_staging_macos_releases.json"
+create_wine_entries "$TEMP_DIR/wine_staging_macos_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/wine_staging_macos.json"
+
+# SIKARUGIR_ENGINES
+fetch_github_releases "Sikarugir-App/Engines" "$TEMP_DIR/sikarugir_engines_releases.json"
+create_wine_entries "$TEMP_DIR/sikarugir_engines_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/sikarugir_engines.json"
+
+# GAME_PORTING_TOOLKIT
+fetch_github_releases "Gcenx/game-porting-toolkit" "$TEMP_DIR/game_porting_toolkit_releases.json"
+create_wine_entries "$TEMP_DIR/game_porting_toolkit_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/game_porting_toolkit.json"
+
+log "Создание итогового macOS JSON файла..."
+
+{
+    cat << 'JSON_START'
+{
+  "wine-crossover": [
+JSON_START
+
+    if [[ -s "$TEMP_DIR/wine_crossover.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/wine_crossover.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE'
+  ],
+  "wine-staging-macos": [
+JSON_CONTINUE
+
+    if [[ -s "$TEMP_DIR/wine_staging_macos.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/wine_staging_macos.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE2'
+  ],
+  "sikarugir-engines": [
+JSON_CONTINUE2
+
+    if [[ -s "$TEMP_DIR/sikarugir_engines.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/sikarugir_engines.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE3'
+  ],
+  "game-porting-toolkit": [
+JSON_CONTINUE3
+
+    if [[ -s "$TEMP_DIR/game_porting_toolkit.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/game_porting_toolkit.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_END'
+  ]
+}
+JSON_END
+} > "$MACOS_OUTPUT_FILE"
+
+if jq empty "$MACOS_OUTPUT_FILE" 2>/dev/null; then
+    log "macOS JSON файл создан успешно и валиден: $MACOS_OUTPUT_FILE"
+else
+    log "ОШИБКА: Созданный macOS JSON файл невалиден!"
+    exit 1
+fi
+
+echo
+log "Статистика созданного macOS файла:"
+for category in wine-crossover wine-staging-macos sikarugir-engines game-porting-toolkit; do
+    count=$(jq -r ".[\"${category}\"] | length" "$MACOS_OUTPUT_FILE" 2>/dev/null || echo "0")
+    log "  $category: $count версий"
+done
+
+log "Генерация macOS метаданных завершена: $MACOS_OUTPUT_FILE"
