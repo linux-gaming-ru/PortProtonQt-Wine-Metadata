@@ -177,9 +177,9 @@ create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins"
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
 create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver|arm64" > "$TEMP_DIR/proton_cachyos.json"
 
-# PROTON_SAREK
-fetch_github_releases "pythonlover02/Proton-Sarek" "$TEMP_DIR/proton_sarek_releases.json"
-create_wine_entries "$TEMP_DIR/proton_sarek_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/proton_sarek.json"
+# PROTON_DW
+fetch_github_releases "dawn-winery/dwproton-mirror" "$TEMP_DIR/proton_dw_releases.json"
+create_wine_entries "$TEMP_DIR/proton_dw_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_dw.json"
 
 # PROTON_EM
 fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
@@ -231,11 +231,11 @@ JSON_CONTINUE4
 
     cat << 'JSON_CONTINUE5'
   ],
-  "proton_sarek": [
+  "proton_dw": [
 JSON_CONTINUE5
 
-    if [[ -s "$TEMP_DIR/proton_sarek.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_sarek.json" | sed 's/^/    /'
+    if [[ -s "$TEMP_DIR/proton_dw.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/proton_dw.json" | sed 's/^/    /'
     fi
 
     cat << 'JSON_CONTINUE6'
@@ -272,7 +272,7 @@ fi
 
 echo
 log "Статистика созданного файла:"
-for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_sarek proton_em gdk_proton; do
+for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton; do
     count=$(jq -r ".${category} | length" "$OUTPUT_FILE" 2>/dev/null || echo "0")
     log "  $category: $count версий"
 done
