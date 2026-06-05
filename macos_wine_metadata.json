@@ -3,6 +3,8 @@
     {"name":"Wine-Crossover-23.7.1-1","url":"https://github.com/Heroic-Games-Launcher/wine-crossover/releases/download/23.7.1-1/Wine-Crossover-23.7.1-1.tar.xz","size_human":"191.1 MiB"}
   ],
   "wine-staging-macos": [
+    {"name":"wine-devel-11.10-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.10/wine-devel-11.10-osx64.tar.xz","size_human":"179.3 MiB"},
+    {"name":"wine-staging-11.10-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.10/wine-staging-11.10-osx64.tar.xz","size_human":"181.3 MiB"},
     {"name":"wine-devel-11.9-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.9/wine-devel-11.9-osx64.tar.xz","size_human":"179.1 MiB"},
     {"name":"wine-staging-11.9-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.9/wine-staging-11.9-osx64.tar.xz","size_human":"181.1 MiB"},
     {"name":"wine-devel-11.8-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.8/wine-devel-11.8-osx64.tar.xz","size_human":"177.8 MiB"},
