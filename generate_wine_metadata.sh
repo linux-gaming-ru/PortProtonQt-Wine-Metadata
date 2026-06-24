@@ -153,7 +153,7 @@ log "Начало генерации метаданных..."
 
 # PROTON_GE
 fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json" "GE-Proton7-"
-create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action" > "$TEMP_DIR/proton_ge.json"
+create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action|aarch64" > "$TEMP_DIR/proton_ge.json"
 
 # WINE_KRON4EK
 fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json" "^7\\."
