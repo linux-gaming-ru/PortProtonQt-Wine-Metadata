@@ -570,6 +570,8 @@
     {"name":"WINE_LG_8-18-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_8-18-1/WINE_LG_8-18-1.tar.xz","size_human":"185.5 MiB"}
   ],
   "proton_cachyos": [
+    {"name":"proton-cachyos-11.0-20260702-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20260702-slr/proton-cachyos-11.0-20260702-slr-x86_64.tar.xz","size_human":"313.0 MiB"},
+    {"name":"proton-cachyos-11.0-20260702-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20260702-slr/proton-cachyos-11.0-20260702-slr-x86_64_v3.tar.xz","size_human":"312.8 MiB"},
     {"name":"proton-cachyos-11.0-20260602-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20260602-slr/proton-cachyos-11.0-20260602-slr-x86_64.tar.xz","size_human":"320.6 MiB"},
     {"name":"proton-cachyos-11.0-20260602-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20260602-slr/proton-cachyos-11.0-20260602-slr-x86_64_v3.tar.xz","size_human":"320.6 MiB"},
     {"name":"proton-cachyos-10.0-sunset-slr-x86_64","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-10.0-sunset-slr/proton-cachyos-10.0-sunset-slr-x86_64.tar.xz","size_human":"316.7 MiB"},
@@ -750,6 +752,7 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz","size_human":"260.2 MiB"}
   ],
   "proton_dw": [
+    {"name":"dwproton-11.0-6-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-6/dwproton-11.0-6-x86_64.tar.xz","size_human":"279.5 MiB"},
     {"name":"dwproton-11.0-5-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-5/dwproton-11.0-5-x86_64.tar.xz","size_human":"276.0 MiB"},
     {"name":"dwproton-11.0-4-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-4/dwproton-11.0-4-x86_64.tar.xz","size_human":"275.6 MiB"},
     {"name":"dwproton-11.0-3-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-3/dwproton-11.0-3-x86_64.tar.xz","size_human":"274.2 MiB"},
