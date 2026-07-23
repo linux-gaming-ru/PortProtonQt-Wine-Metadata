@@ -39,7 +39,7 @@ jobs:
           echo "Changed files:"
           cat changed_files.txt
 
-          if grep -Eq "^(wine_metadata|macos_wine_metadata)\.json$" changed_files.txt; then
+          if grep -Eq "^(wine_metadata|wine_metadata_all|macos_wine_metadata)\.json$" changed_files.txt; then
             rm -v changed_files.txt
             bash push-to-gitea.sh
           fi

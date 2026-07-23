@@ -2,6 +2,7 @@
 set -euo pipefail
 
 OUTPUT_FILE="wine_metadata.json"
+ALL_ARCH_OUTPUT_FILE="wine_metadata_all.json"
 MACOS_OUTPUT_FILE="macos_wine_metadata.json"
 TEMP_DIR="/tmp/wine_metadata_$$"
 mkdir -p "$TEMP_DIR"
@@ -127,6 +128,45 @@ create_wine_entries() {
     fi
 }
 
+# Удаляет ARM-сборки из уже полученного списка без дополнительных запросов к GitHub.
+# Аргументы:
+#   $1 - путь к JSON Lines файлу со всеми архитектурами
+exclude_arm_entries() {
+    local input_file="$1"
+
+    jq -c 'select(.name | test("aarch64|arm64"; "i") | not)' "$input_file"
+}
+
+# Собирает Linux-метаданные из подготовленных JSON Lines файлов.
+# Аргументы:
+#   $1 - путь к выходному JSON файлу
+#   $2 - суффикс файлов категорий (например "_all" или пустая строка)
+create_linux_metadata() {
+    local output_file="$1"
+    local suffix="$2"
+    local categories=(proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton)
+
+    {
+        echo "{"
+        for index in "${!categories[@]}"; do
+            local category="${categories[$index]}"
+            local category_file="$TEMP_DIR/${category}${suffix}.json"
+
+            printf '  "%s": [\n' "$category"
+            if [[ -s "$category_file" ]]; then
+                sed '$!s/$/,/' "$category_file" | sed 's/^/    /'
+            fi
+
+            if (( index < ${#categories[@]} - 1 )); then
+                echo "  ],"
+            else
+                echo "  ]"
+            fi
+        done
+        echo "}"
+    } > "$output_file"
+}
+
 # Получает список доступных в облаке сборок Linux Gaming для proton_lg секции.
 # Оставляет только ожидаемые типы и версии >= 8, чтобы не включать ломающие префикс версии.
 fetch_cloud_lg_allowlist() {
@@ -153,11 +193,13 @@ log "Начало генерации метаданных..."
 
 # PROTON_GE
 fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json" "GE-Proton7-"
-create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action|aarch64" > "$TEMP_DIR/proton_ge.json"
+create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action" > "$TEMP_DIR/proton_ge_all.json"
+exclude_arm_entries "$TEMP_DIR/proton_ge_all.json" > "$TEMP_DIR/proton_ge.json"
 
 # WINE_KRON4EK
 fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json" "^7\\."
 create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
+cp "$TEMP_DIR/wine_kron4ek.json" "$TEMP_DIR/wine_kron4ek_all.json"
 
 # PROTON_LG
 fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
@@ -172,103 +214,41 @@ create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins"
         # Финальный фильтр: в JSON остаются только версии, реально присутствующие в cloud.
         select(.name as $name | ($allow[0] | index($name)) != null)
     ' > "$TEMP_DIR/proton_lg.json"
+cp "$TEMP_DIR/proton_lg.json" "$TEMP_DIR/proton_lg_all.json"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
-create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver|arm64" > "$TEMP_DIR/proton_cachyos.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
+exclude_arm_entries "$TEMP_DIR/proton_cachyos_all.json" > "$TEMP_DIR/proton_cachyos.json"
 
 # PROTON_DW
 fetch_github_releases "dawn-winery/dwproton-mirror" "$TEMP_DIR/proton_dw_releases.json"
 create_wine_entries "$TEMP_DIR/proton_dw_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_dw.json"
+cp "$TEMP_DIR/proton_dw.json" "$TEMP_DIR/proton_dw_all.json"
 
 # PROTON_EM
 fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
 create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_em.json"
+cp "$TEMP_DIR/proton_em.json" "$TEMP_DIR/proton_em_all.json"
 
 # GDK_PROTON
 fetch_github_releases "Weather-OS/GDK-Proton" "$TEMP_DIR/gdk_proton_releases.json"
 create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/gdk_proton.json"
+cp "$TEMP_DIR/gdk_proton.json" "$TEMP_DIR/gdk_proton_all.json"
 
-# Создание итогового JSON файла
-log "Создание итогового JSON файла..."
+# Создание итоговых JSON файлов из одного набора ответов GitHub API.
+log "Создание итоговых JSON файлов..."
+create_linux_metadata "$ALL_ARCH_OUTPUT_FILE" "_all"
+create_linux_metadata "$OUTPUT_FILE" ""
 
-{
-    cat << 'JSON_START'
-{
-  "proton_ge": [
-JSON_START
-
-    if [[ -s "$TEMP_DIR/proton_ge.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_ge.json" | sed 's/^/    /'
+for output_file in "$OUTPUT_FILE" "$ALL_ARCH_OUTPUT_FILE"; do
+    if jq empty "$output_file" 2>/dev/null; then
+        log "JSON файл создан успешно и валиден: $output_file"
+    else
+        log "ОШИБКА: Созданный JSON файл невалиден: $output_file"
+        exit 1
     fi
-
-    cat << 'JSON_CONTINUE'
-  ],
-  "wine_kron4ek": [
-JSON_CONTINUE
-
-    if [[ -s "$TEMP_DIR/wine_kron4ek.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/wine_kron4ek.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_CONTINUE2'
-  ],
-  "proton_lg": [
-JSON_CONTINUE2
-
-    if [[ -s "$TEMP_DIR/proton_lg.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_lg.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_CONTINUE4'
-  ],
-  "proton_cachyos": [
-JSON_CONTINUE4
-
-    if [[ -s "$TEMP_DIR/proton_cachyos.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_cachyos.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_CONTINUE5'
-  ],
-  "proton_dw": [
-JSON_CONTINUE5
-
-    if [[ -s "$TEMP_DIR/proton_dw.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_dw.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_CONTINUE6'
-  ],
-  "proton_em": [
-JSON_CONTINUE6
-
-    if [[ -s "$TEMP_DIR/proton_em.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/proton_em.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_CONTINUE7'
-  ],
-  "gdk_proton": [
-JSON_CONTINUE7
-
-    if [[ -s "$TEMP_DIR/gdk_proton.json" ]]; then
-        sed '$!s/$/,/' "$TEMP_DIR/gdk_proton.json" | sed 's/^/    /'
-    fi
-
-    cat << 'JSON_END'
-  ]
-}
-JSON_END
-
-} > "$OUTPUT_FILE"
-
-if jq empty "$OUTPUT_FILE" 2>/dev/null; then
-    log "JSON файл создан успешно и валиден: $OUTPUT_FILE"
-else
-    log "ОШИБКА: Созданный JSON файл невалиден!"
-    exit 1
-fi
+done
 
 echo
 log "Статистика созданного файла:"
@@ -278,6 +258,7 @@ for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton
 done
 
 log "Генерация метаданных завершена: $OUTPUT_FILE"
+log "Генерация метаданных со всеми архитектурами завершена: $ALL_ARCH_OUTPUT_FILE"
 
 log "Начало генерации macOS метаданных..."
 
