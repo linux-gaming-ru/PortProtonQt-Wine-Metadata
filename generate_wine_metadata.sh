@@ -1,0 +1,340 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+OUTPUT_FILE="wine_metadata.json"
+ALL_ARCH_OUTPUT_FILE="wine_metadata_all.json"
+MACOS_OUTPUT_FILE="macos_wine_metadata.json"
+TEMP_DIR="/tmp/wine_metadata_$$"
+mkdir -p "$TEMP_DIR"
+
+# Выводит сообщение с временной меткой в stderr
+# Аргументы: $1 - текст сообщения
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >&2
+}
+
+# Удаляет временную директорию при завершении скрипта
+cleanup() {
+    rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
+
+# Получает все релизы из GitHub репозитория с поддержкой пагинации
+# Аргументы:
+#   $1 - репозиторий в формате "owner/repo"
+#   $2 - путь к выходному JSON файлу
+#   $3 - (опционально) regex-паттерн для остановки загрузки (релиз с паттерном не включается)
+fetch_github_releases() {
+    local repo="$1"
+    local output_file="$2"
+    local stop_pattern="${3:-}"
+
+    log "Получение релизов из $repo..."
+
+    local page=1
+    local per_page=100
+    local all_releases="[]"
+    local should_stop=false
+
+    while true; do
+        local url="https://api.github.com/repos/$repo/releases?per_page=${per_page}&page=${page}"
+        local temp_file="$TEMP_DIR/page_${page}.json"
+
+        if ! curl -fsSL -H "Accept: application/vnd.github.v3+json" "$url" > "$temp_file"; then
+            log "Ошибка при получении релизов для $repo (страница $page)"
+            return 1
+        fi
+
+        local page_count=$(jq '. | length' "$temp_file" 2>/dev/null || echo "0")
+
+        if [[ "$page_count" -eq 0 ]]; then
+            rm -f "$temp_file"
+            break
+        fi
+
+        if [[ -n "$stop_pattern" ]]; then
+            local filtered_releases=$(jq --arg pattern "$stop_pattern" '
+                . as $releases |
+                (map(.tag_name) | to_entries | map(select(.value | test($pattern; "i"))) | .[0].key // -1) as $stop_idx |
+                if $stop_idx >= 0 then
+                    $releases[0:$stop_idx]
+                else
+                    $releases
+                end
+            ' "$temp_file")
+
+            local filtered_count=$(echo "$filtered_releases" | jq 'length')
+            all_releases=$(echo "$all_releases" "$filtered_releases" | jq -s '.[0] + .[1]')
+
+            if [[ "$filtered_count" -lt "$page_count" ]]; then
+                log "Достигнут стоп-паттерн '$stop_pattern' на странице $page"
+                should_stop=true
+            fi
+        else
+            all_releases=$(echo "$all_releases" | jq --slurpfile page "$temp_file" '. + $page[0]')
+        fi
+
+        rm -f "$temp_file"
+        log "  Страница $page: $page_count релизов"
+
+        if [[ "$should_stop" == "true" ]] || [[ "$page_count" -lt "$per_page" ]]; then
+            break
+        fi
+
+        ((page++))
+    done
+
+    echo "$all_releases" > "$output_file"
+
+    local count=$(jq '. | length' "$output_file" 2>/dev/null || echo "0")
+    log "Получено данных для $repo: $count релизов (всего страниц: $page)"
+}
+
+# Преобразует JSON с релизами GitHub в записи wine с именем, URL и размером
+# Аргументы:
+#   $1 - путь к входному JSON файлу с релизами
+#   $2 - regex расширения файла для фильтрации ассетов (например "\\.tar\\.gz$")
+#   $3 - (опционально) regex-паттерн для исключения ассетов по имени
+create_wine_entries() {
+    local input_file="$1"
+    local file_extension="$2"
+    local exclude_patterns="$3"
+
+    jq --arg ext "$file_extension" '
+        def human_size:
+          if . == 0 then "0 B"
+          elif . < 1024 then "\(.).0 B"
+          elif . < 1024*1024 then "\((./1024)|floor).\( ((./1024 * 10 % 10)|floor)) KiB"
+          elif . < 1024*1024*1024 then "\((./(1024*1024))|floor).\( ((./(1024*1024) * 10 % 10)|floor)) MiB"
+          elif . < 1024*1024*1024*1024 then "\((./(1024*1024*1024))|floor).\( ((./(1024*1024*1024) * 10 % 10)|floor)) GiB"
+          else "\((./(1024*1024*1024*1024))|floor).\( ((./(1024*1024*1024*1024) * 10 % 10)|floor)) TiB"
+          end;
+
+        .[] |
+        .assets[] |
+        select(.browser_download_url | test($ext)) |
+        {
+            name: (.name | gsub($ext; "")),
+            url: .browser_download_url,
+            size_human: (.size | human_size)
+        }
+    ' "$input_file" | \
+    if [[ -n "$exclude_patterns" ]]; then
+        jq -c --arg patterns "$exclude_patterns" '
+            select(.name | test($patterns) | not)
+        '
+    else
+        jq -c '.'
+    fi
+}
+
+# Удаляет ARM-сборки из уже полученного списка без дополнительных запросов к GitHub.
+# Аргументы:
+#   $1 - путь к JSON Lines файлу со всеми архитектурами
+exclude_arm_entries() {
+    local input_file="$1"
+
+    jq -c 'select(.name | test("aarch64|arm64"; "i") | not)' "$input_file"
+}
+
+# Собирает Linux-метаданные из подготовленных JSON Lines файлов.
+# Аргументы:
+#   $1 - путь к выходному JSON файлу
+#   $2 - суффикс файлов категорий (например "_all" или пустая строка)
+create_linux_metadata() {
+    local output_file="$1"
+    local suffix="$2"
+    local categories=(proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton)
+
+    {
+        echo "{"
+        for index in "${!categories[@]}"; do
+            local category="${categories[$index]}"
+            local category_file="$TEMP_DIR/${category}${suffix}.json"
+
+            printf '  "%s": [\n' "$category"
+            if [[ -s "$category_file" ]]; then
+                sed '$!s/$/,/' "$category_file" | sed 's/^/    /'
+            fi
+
+            if (( index < ${#categories[@]} - 1 )); then
+                echo "  ],"
+            else
+                echo "  ]"
+            fi
+        done
+        echo "}"
+    } > "$output_file"
+}
+
+# Получает список доступных в облаке сборок Linux Gaming для proton_lg секции.
+# Оставляет только ожидаемые типы и версии >= 8, чтобы не включать ломающие префикс версии.
+fetch_cloud_lg_allowlist() {
+    local output_file="$1"
+    local cloud_url="https://cloud.linux-gaming.ru/"
+
+    log "Получение списка PROTON/WINE LG из $cloud_url..."
+
+    if ! curl -fsSL "$cloud_url" | \
+        grep -oE "portproton/(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_[^'\"<>]+\\.tar\\.xz" | \
+        sed -E 's#^portproton/##; s#\.tar\.xz$##' | \
+        grep -E "_(8|9|[1-9][0-9])([.-]|$)" | \
+        sort -u > "$output_file"; then
+        log "Ошибка при получении списка версий с $cloud_url"
+        return 1
+    fi
+
+    local count
+    count=$(wc -l < "$output_file" | tr -d ' ')
+    log "Получено версий из cloud для proton_lg: $count"
+}
+
+log "Начало генерации метаданных..."
+
+# PROTON_GE
+fetch_github_releases "GloriousEggroll/proton-ge-custom" "$TEMP_DIR/proton_ge_releases.json" "GE-Proton7-"
+create_wine_entries "$TEMP_DIR/proton_ge_releases.json" "\\.tar\\.gz$" "github-action" > "$TEMP_DIR/proton_ge_all.json"
+exclude_arm_entries "$TEMP_DIR/proton_ge_all.json" > "$TEMP_DIR/proton_ge.json"
+
+# WINE_KRON4EK
+fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json" "^7\\."
+create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
+cp "$TEMP_DIR/wine_kron4ek.json" "$TEMP_DIR/wine_kron4ek_all.json"
+
+# PROTON_LG
+fetch_github_releases "Castro-Fidel/wine_builds" "$TEMP_DIR/proton_lg_releases.json"
+fetch_cloud_lg_allowlist "$TEMP_DIR/cloud_lg_allowlist.txt"
+jq -R -s 'split("\n") | map(select(length > 0))' "$TEMP_DIR/cloud_lg_allowlist.txt" > "$TEMP_DIR/cloud_lg_allowlist.json"
+create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" | \
+    jq -c '
+        # Защитный regex: только нужные семейства и только версии >=8.
+        select(.name | test("^(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_(8|9|[1-9][0-9])([.-]|$)"))
+    ' | \
+    jq -c --slurpfile allow "$TEMP_DIR/cloud_lg_allowlist.json" '
+        # Финальный фильтр: в JSON остаются только версии, реально присутствующие в cloud.
+        select(.name as $name | ($allow[0] | index($name)) != null)
+    ' > "$TEMP_DIR/proton_lg.json"
+cp "$TEMP_DIR/proton_lg.json" "$TEMP_DIR/proton_lg_all.json"
+
+# PROTON_CACHYOS
+fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
+exclude_arm_entries "$TEMP_DIR/proton_cachyos_all.json" > "$TEMP_DIR/proton_cachyos.json"
+
+# PROTON_DW
+fetch_github_releases "dawn-winery/dwproton-mirror" "$TEMP_DIR/proton_dw_releases.json"
+create_wine_entries "$TEMP_DIR/proton_dw_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_dw.json"
+cp "$TEMP_DIR/proton_dw.json" "$TEMP_DIR/proton_dw_all.json"
+
+# PROTON_EM
+fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
+create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_em.json"
+cp "$TEMP_DIR/proton_em.json" "$TEMP_DIR/proton_em_all.json"
+
+# GDK_PROTON
+fetch_github_releases "Weather-OS/GDK-Proton" "$TEMP_DIR/gdk_proton_releases.json"
+create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/gdk_proton.json"
+cp "$TEMP_DIR/gdk_proton.json" "$TEMP_DIR/gdk_proton_all.json"
+
+# Создание итоговых JSON файлов из одного набора ответов GitHub API.
+log "Создание итоговых JSON файлов..."
+create_linux_metadata "$ALL_ARCH_OUTPUT_FILE" "_all"
+create_linux_metadata "$OUTPUT_FILE" ""
+
+for output_file in "$OUTPUT_FILE" "$ALL_ARCH_OUTPUT_FILE"; do
+    if jq empty "$output_file" 2>/dev/null; then
+        log "JSON файл создан успешно и валиден: $output_file"
+    else
+        log "ОШИБКА: Созданный JSON файл невалиден: $output_file"
+        exit 1
+    fi
+done
+
+echo
+log "Статистика созданного файла:"
+for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton; do
+    count=$(jq -r ".${category} | length" "$OUTPUT_FILE" 2>/dev/null || echo "0")
+    log "  $category: $count версий"
+done
+
+log "Генерация метаданных завершена: $OUTPUT_FILE"
+log "Генерация метаданных со всеми архитектурами завершена: $ALL_ARCH_OUTPUT_FILE"
+
+log "Начало генерации macOS метаданных..."
+
+# WINE_CROSSOVER
+fetch_github_releases "Heroic-Games-Launcher/wine-crossover" "$TEMP_DIR/wine_crossover_releases.json"
+create_wine_entries "$TEMP_DIR/wine_crossover_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/wine_crossover.json"
+
+# WINE_STAGING_MACOS
+fetch_github_releases "Gcenx/macOS_Wine_builds" "$TEMP_DIR/wine_staging_macos_releases.json"
+create_wine_entries "$TEMP_DIR/wine_staging_macos_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/wine_staging_macos.json"
+
+# SIKARUGIR_ENGINES
+fetch_github_releases "Sikarugir-App/Engines" "$TEMP_DIR/sikarugir_engines_releases.json"
+create_wine_entries "$TEMP_DIR/sikarugir_engines_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/sikarugir_engines.json"
+
+# GAME_PORTING_TOOLKIT
+fetch_github_releases "Gcenx/game-porting-toolkit" "$TEMP_DIR/game_porting_toolkit_releases.json"
+create_wine_entries "$TEMP_DIR/game_porting_toolkit_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/game_porting_toolkit.json"
+
+log "Создание итогового macOS JSON файла..."
+
+{
+    cat << 'JSON_START'
+{
+  "wine-crossover": [
+JSON_START
+
+    if [[ -s "$TEMP_DIR/wine_crossover.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/wine_crossover.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE'
+  ],
+  "wine-staging-macos": [
+JSON_CONTINUE
+
+    if [[ -s "$TEMP_DIR/wine_staging_macos.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/wine_staging_macos.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE2'
+  ],
+  "sikarugir-engines": [
+JSON_CONTINUE2
+
+    if [[ -s "$TEMP_DIR/sikarugir_engines.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/sikarugir_engines.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_CONTINUE3'
+  ],
+  "game-porting-toolkit": [
+JSON_CONTINUE3
+
+    if [[ -s "$TEMP_DIR/game_porting_toolkit.json" ]]; then
+        sed '$!s/$/,/' "$TEMP_DIR/game_porting_toolkit.json" | sed 's/^/    /'
+    fi
+
+    cat << 'JSON_END'
+  ]
+}
+JSON_END
+} > "$MACOS_OUTPUT_FILE"
+
+if jq empty "$MACOS_OUTPUT_FILE" 2>/dev/null; then
+    log "macOS JSON файл создан успешно и валиден: $MACOS_OUTPUT_FILE"
+else
+    log "ОШИБКА: Созданный macOS JSON файл невалиден!"
+    exit 1
+fi
+
+echo
+log "Статистика созданного macOS файла:"
+for category in wine-crossover wine-staging-macos sikarugir-engines game-porting-toolkit; do
+    count=$(jq -r ".[\"${category}\"] | length" "$MACOS_OUTPUT_FILE" 2>/dev/null || echo "0")
+    log "  $category: $count версий"
+done
+
+log "Генерация macOS метаданных завершена: $MACOS_OUTPUT_FILE"
