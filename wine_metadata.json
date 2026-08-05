@@ -762,6 +762,7 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz","size_human":"260.2 MiB"}
   ],
   "proton_dw": [
+    {"name":"dwproton-11.0-10-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-10/dwproton-11.0-10-x86_64.tar.xz","size_human":"285.3 MiB"},
     {"name":"dwproton-11.0-9-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-9/dwproton-11.0-9-x86_64.tar.xz","size_human":"285.2 MiB"},
     {"name":"dwproton-11.0-7-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-7/dwproton-11.0-7-x86_64.tar.xz","size_human":"279.5 MiB"},
     {"name":"dwproton-11.0-6-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-6/dwproton-11.0-6-x86_64.tar.xz","size_human":"279.5 MiB"},
