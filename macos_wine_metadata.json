@@ -4,6 +4,7 @@
   ],
   "wine-staging-macos": [
     {"name":"wine-devel-11.15-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.15/wine-devel-11.15-osx64.tar.xz","size_human":"182.5 MiB"},
+    {"name":"wine-staging-11.15-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.15/wine-staging-11.15-osx64.tar.xz","size_human":"184.5 MiB"},
     {"name":"wine-devel-11.14-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.14/wine-devel-11.14-osx64.tar.xz","size_human":"181.1 MiB"},
     {"name":"wine-staging-11.14-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.14/wine-staging-11.14-osx64.tar.xz","size_human":"183.3 MiB"},
     {"name":"wine-devel-11.13-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.13/wine-devel-11.13-osx64.tar.xz","size_human":"181.0 MiB"},
