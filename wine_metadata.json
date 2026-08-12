@@ -1,5 +1,7 @@
 {
   "proton_ge": [
+    {"name":"GE-Proton11-5-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz","size_human":"508.3 MiB"},
+    {"name":"GE-Proton11-4-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-4/GE-Proton11-4-x86_64.tar.gz","size_human":"508.3 MiB"},
     {"name":"GE-Proton11-3","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-3/GE-Proton11-3.tar.gz","size_human":"507.8 MiB"},
     {"name":"GE-Proton11-2","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-2/GE-Proton11-2.tar.gz","size_human":"507.8 MiB"},
     {"name":"GE-Proton11-1","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-1/GE-Proton11-1.tar.gz","size_human":"504.3 MiB"},
