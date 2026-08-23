@@ -117,6 +117,8 @@
     {"name":"wine-11.13-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.13/wine-11.13-staging-amd64.tar.xz","size_human":"97.2 MiB"},
     {"name":"wine-11.13-staging-tkg-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.13/wine-11.13-staging-tkg-amd64-wow64.tar.xz","size_human":"96.2 MiB"},
     {"name":"wine-11.13-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.13/wine-11.13-staging-tkg-amd64.tar.xz","size_human":"97.2 MiB"},
+    {"name":"wine-proton-11.0-2-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/proton-11.0-2/wine-proton-11.0-2-amd64-wow64.tar.xz","size_human":"76.3 MiB"},
+    {"name":"wine-proton-11.0-2-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/proton-11.0-2/wine-proton-11.0-2-amd64.tar.xz","size_human":"78.9 MiB"},
     {"name":"wine-11.12-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.12/wine-11.12-amd64-wow64.tar.xz","size_human":"94.3 MiB"},
     {"name":"wine-11.12-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.12/wine-11.12-amd64.tar.xz","size_human":"95.5 MiB"},
     {"name":"wine-11.12-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.12/wine-11.12-staging-amd64-wow64.tar.xz","size_human":"96.2 MiB"},
