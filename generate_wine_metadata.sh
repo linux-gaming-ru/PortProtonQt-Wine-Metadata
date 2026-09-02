@@ -198,7 +198,7 @@ exclude_arm_entries "$TEMP_DIR/proton_ge_all.json" > "$TEMP_DIR/proton_ge.json"
 
 # WINE_KRON4EK
 fetch_github_releases "Kron4ek/Wine-Builds" "$TEMP_DIR/wine_kron4ek_releases.json" "^7\\."
-create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86" > "$TEMP_DIR/wine_kron4ek.json"
+create_wine_entries "$TEMP_DIR/wine_kron4ek_releases.json" "\\.tar\\.xz$" "-x86|rc[0-9]|beta[0-9]" > "$TEMP_DIR/wine_kron4ek.json"
 cp "$TEMP_DIR/wine_kron4ek.json" "$TEMP_DIR/wine_kron4ek_all.json"
 
 # PROTON_LG
@@ -219,7 +219,7 @@ cp "$TEMP_DIR/proton_lg.json" "$TEMP_DIR/proton_lg_all.json"
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
 fetch_github_releases "nanomatters/proton-cachyos" "$TEMP_DIR/proton_cachyos_wineland_releases.json"
-jq -s '.[1] + .[0]' \
+jq -s '(.[1] | map(select(.tag_name | test("rc|beta"; "i") | not))) + .[0]' \
     "$TEMP_DIR/proton_cachyos_releases.json" \
     "$TEMP_DIR/proton_cachyos_wineland_releases.json" \
     > "$TEMP_DIR/proton_cachyos_combined_releases.json"
