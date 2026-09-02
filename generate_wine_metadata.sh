@@ -218,7 +218,12 @@ cp "$TEMP_DIR/proton_lg.json" "$TEMP_DIR/proton_lg_all.json"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
-create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
+fetch_github_releases "nanomatters/proton-cachyos" "$TEMP_DIR/proton_cachyos_wineland_releases.json"
+jq -s '.[1] + .[0]' \
+    "$TEMP_DIR/proton_cachyos_releases.json" \
+    "$TEMP_DIR/proton_cachyos_wineland_releases.json" \
+    > "$TEMP_DIR/proton_cachyos_combined_releases.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_combined_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
 exclude_arm_entries "$TEMP_DIR/proton_cachyos_all.json" > "$TEMP_DIR/proton_cachyos.json"
 
 # PROTON_DW
