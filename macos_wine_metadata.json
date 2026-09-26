@@ -3,6 +3,8 @@
     {"name":"Wine-Crossover-23.7.1-1","url":"https://github.com/Heroic-Games-Launcher/wine-crossover/releases/download/23.7.1-1/Wine-Crossover-23.7.1-1.tar.xz","size_human":"191.1 MiB"}
   ],
   "wine-staging-macos": [
+    {"name":"wine-devel-11.18-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.18/wine-devel-11.18-osx64.tar.xz","size_human":"182.1 MiB"},
+    {"name":"wine-staging-11.18-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.18/wine-staging-11.18-osx64.tar.xz","size_human":"184.1 MiB"},
     {"name":"wine-devel-11.17-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.17/wine-devel-11.17-osx64.tar.xz","size_human":"182.4 MiB"},
     {"name":"wine-staging-11.17-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.17/wine-staging-11.17-osx64.tar.xz","size_human":"184.3 MiB"},
     {"name":"wine-devel-11.16-osx64","url":"https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.16/wine-devel-11.16-osx64.tar.xz","size_human":"182.5 MiB"},
@@ -67,7 +69,8 @@
     {"name":"WS12WineSikarugir10.0_3","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir10.0_3.tar.xz","size_human":"158.5 MiB"},
     {"name":"WS12WineSikarugir10.0_4","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir10.0_4.tar.xz","size_human":"158.5 MiB"},
     {"name":"WS12WineSikarugir10.0_5","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir10.0_5.tar.xz","size_human":"158.5 MiB"},
-    {"name":"WS12WineSikarugir10.0_6","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir10.0_6.tar.xz","size_human":"158.5 MiB"}
+    {"name":"WS12WineSikarugir10.0_6","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir10.0_6.tar.xz","size_human":"158.5 MiB"},
+    {"name":"WS12WineSikarugir11.0","url":"https://github.com/Sikarugir-App/Engines/releases/download/v1.0/WS12WineSikarugir11.0.tar.xz","size_human":"159.4 MiB"}
   ],
   "game-porting-toolkit": [
     {"name":"game-porting-toolkit-3.0-3","url":"https://github.com/Gcenx/game-porting-toolkit/releases/download/Game-Porting-Toolkit-3.0-3/game-porting-toolkit-3.0-3.tar.xz","size_human":"228.1 MiB"},
