@@ -225,6 +225,8 @@ exclude_arm_entries "$TEMP_DIR/proton_cachyos_all.json" > "$TEMP_DIR/proton_cach
 fetch_github_releases "nanomatters/proton-cachyos" "$TEMP_DIR/proton_wineland_releases.json"
 jq 'map(select(.tag_name | test("rc|beta"; "i") | not))' "$TEMP_DIR/proton_wineland_releases.json" > "$TEMP_DIR/proton_wineland_releases_filtered.json"
 create_wine_entries "$TEMP_DIR/proton_wineland_releases_filtered.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_wineland_all.json"
+jq -c 'select(.name | startswith("proton-wineland-"))' "$TEMP_DIR/proton_wineland_all.json" > "$TEMP_DIR/proton_wineland_all_filtered.json"
+mv "$TEMP_DIR/proton_wineland_all_filtered.json" "$TEMP_DIR/proton_wineland_all.json"
 exclude_arm_entries "$TEMP_DIR/proton_wineland_all.json" > "$TEMP_DIR/proton_wineland.json"
 
 # PROTON_DW
