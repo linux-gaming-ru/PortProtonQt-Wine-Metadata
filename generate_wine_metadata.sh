@@ -144,7 +144,7 @@ exclude_arm_entries() {
 create_linux_metadata() {
     local output_file="$1"
     local suffix="$2"
-    local categories=(proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton)
+    local categories=(proton_ge wine_kron4ek proton_lg proton_cachyos proton_wineland proton_dw proton_em)
 
     {
         echo "{"
@@ -218,13 +218,14 @@ cp "$TEMP_DIR/proton_lg.json" "$TEMP_DIR/proton_lg_all.json"
 
 # PROTON_CACHYOS
 fetch_github_releases "CachyOS/proton-cachyos" "$TEMP_DIR/proton_cachyos_releases.json"
-fetch_github_releases "nanomatters/proton-cachyos" "$TEMP_DIR/proton_cachyos_wineland_releases.json"
-jq -s '(.[1] | map(select(.tag_name | test("rc|beta"; "i") | not))) + .[0]' \
-    "$TEMP_DIR/proton_cachyos_releases.json" \
-    "$TEMP_DIR/proton_cachyos_wineland_releases.json" \
-    > "$TEMP_DIR/proton_cachyos_combined_releases.json"
-create_wine_entries "$TEMP_DIR/proton_cachyos_combined_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
+create_wine_entries "$TEMP_DIR/proton_cachyos_releases.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_cachyos_all.json"
 exclude_arm_entries "$TEMP_DIR/proton_cachyos_all.json" > "$TEMP_DIR/proton_cachyos.json"
+
+# PROTON_WINELAND
+fetch_github_releases "nanomatters/proton-cachyos" "$TEMP_DIR/proton_wineland_releases.json"
+jq 'map(select(.tag_name | test("rc|beta"; "i") | not))' "$TEMP_DIR/proton_wineland_releases.json" > "$TEMP_DIR/proton_wineland_releases_filtered.json"
+create_wine_entries "$TEMP_DIR/proton_wineland_releases_filtered.json" "\\.tar\\.xz$" "znver" > "$TEMP_DIR/proton_wineland_all.json"
+exclude_arm_entries "$TEMP_DIR/proton_wineland_all.json" > "$TEMP_DIR/proton_wineland.json"
 
 # PROTON_DW
 fetch_github_releases "dawn-winery/dwproton-mirror" "$TEMP_DIR/proton_dw_releases.json"
@@ -235,11 +236,6 @@ cp "$TEMP_DIR/proton_dw.json" "$TEMP_DIR/proton_dw_all.json"
 fetch_github_releases "Etaash-mathamsetty/Proton" "$TEMP_DIR/proton_em_releases.json"
 create_wine_entries "$TEMP_DIR/proton_em_releases.json" "\\.tar\\.xz$" "" > "$TEMP_DIR/proton_em.json"
 cp "$TEMP_DIR/proton_em.json" "$TEMP_DIR/proton_em_all.json"
-
-# GDK_PROTON
-fetch_github_releases "Weather-OS/GDK-Proton" "$TEMP_DIR/gdk_proton_releases.json"
-create_wine_entries "$TEMP_DIR/gdk_proton_releases.json" "\\.tar\\.gz$" "" > "$TEMP_DIR/gdk_proton.json"
-cp "$TEMP_DIR/gdk_proton.json" "$TEMP_DIR/gdk_proton_all.json"
 
 # Создание итоговых JSON файлов из одного набора ответов GitHub API.
 log "Создание итоговых JSON файлов..."
@@ -257,7 +253,7 @@ done
 
 echo
 log "Статистика созданного файла:"
-for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_dw proton_em gdk_proton; do
+for category in proton_ge wine_kron4ek proton_lg proton_cachyos proton_wineland proton_dw proton_em; do
     count=$(jq -r ".${category} | length" "$OUTPUT_FILE" 2>/dev/null || echo "0")
     log "  $category: $count версий"
 done
