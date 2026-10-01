@@ -579,6 +579,9 @@
     {"name":"WINE_LG_8-18-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_8-18-1/WINE_LG_8-18-1.tar.xz","size_human":"185.5 MiB"}
   ],
   "proton_cachyos": [
+    {"name":"proton-wineland-11.0-20260930-x86_64","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260930/proton-wineland-11.0-20260930-x86_64.tar.xz","size_human":"341.1 MiB"},
+    {"name":"proton-wineland-11.0-20260930-x86_64_v3","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260930/proton-wineland-11.0-20260930-x86_64_v3.tar.xz","size_human":"341.3 MiB"},
+    {"name":"proton-wineland-11.0-20260930-x86_64_wow64","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260930/proton-wineland-11.0-20260930-x86_64_wow64.tar.xz","size_human":"324.7 MiB"},
     {"name":"proton-wineland-11.0-20260928.1-x86_64","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260928.1/proton-wineland-11.0-20260928.1-x86_64.tar.xz","size_human":"341.0 MiB"},
     {"name":"proton-wineland-11.0-20260928.1-x86_64_v3","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260928.1/proton-wineland-11.0-20260928.1-x86_64_v3.tar.xz","size_human":"341.2 MiB"},
     {"name":"proton-wineland-11.0-20260928.1-x86_64_wow64","url":"https://github.com/nanomatters/proton-cachyos/releases/download/wineland-11.0-20260928.1/proton-wineland-11.0-20260928.1-x86_64_wow64.tar.xz","size_human":"324.7 MiB"},
