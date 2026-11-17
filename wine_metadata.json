@@ -1,5 +1,6 @@
 {
   "proton_ge": [
+    {"name":"GE-Proton11-12-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-12/GE-Proton11-12-x86_64.tar.gz","size_human":"540.5 MiB"},
     {"name":"GE-Proton11-11-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-11/GE-Proton11-11-x86_64.tar.gz","size_human":"538.6 MiB"},
     {"name":"GE-Proton11-10-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-10/GE-Proton11-10-x86_64.tar.gz","size_human":"539.9 MiB"},
     {"name":"GE-Proton11-9-x86_64","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-9/GE-Proton11-9-x86_64.tar.gz","size_human":"538.5 MiB"},
@@ -105,6 +106,12 @@
     {"name":"GE-Proton8-1","url":"https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton8-1/GE-Proton8-1.tar.gz","size_human":"416.4 MiB"}
   ],
   "wine_kron4ek": [
+    {"name":"wine-11.22-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-amd64-wow64.tar.xz","size_human":"93.6 MiB"},
+    {"name":"wine-11.22-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-amd64.tar.xz","size_human":"95.9 MiB"},
+    {"name":"wine-11.22-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-staging-amd64-wow64.tar.xz","size_human":"95.4 MiB"},
+    {"name":"wine-11.22-staging-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-staging-amd64.tar.xz","size_human":"98.1 MiB"},
+    {"name":"wine-11.22-staging-tkg-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-staging-tkg-amd64-wow64.tar.xz","size_human":"95.4 MiB"},
+    {"name":"wine-11.22-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.22/wine-11.22-staging-tkg-amd64.tar.xz","size_human":"98.1 MiB"},
     {"name":"wine-11.21-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.21/wine-11.21-amd64-wow64.tar.xz","size_human":"93.3 MiB"},
     {"name":"wine-11.21-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.21/wine-11.21-amd64.tar.xz","size_human":"95.7 MiB"},
     {"name":"wine-11.21-staging-amd64-wow64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/11.21/wine-11.21-staging-amd64-wow64.tar.xz","size_human":"95.3 MiB"},
@@ -558,6 +565,7 @@
     {"name":"wine-8.0-staging-tkg-amd64","url":"https://github.com/Kron4ek/Wine-Builds/releases/download/8.0/wine-8.0-staging-tkg-amd64.tar.xz","size_human":"57.6 MiB"}
   ],
   "proton_lg": [
+    {"name":"WINE_LG_RTG_11-21","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_RTG_11-21/WINE_LG_RTG_11-21.tar.xz","size_human":"220.5 MiB"},
     {"name":"WINE_LG_11-10","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_11-10/WINE_LG_11-10.tar.xz","size_human":"218.2 MiB"},
     {"name":"WINE_LG_11-1","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/WINE_LG_11-1/WINE_LG_11-1.tar.xz","size_human":"185.7 MiB"},
     {"name":"PROTON_STEAM_10-0-3","url":"https://github.com/Castro-Fidel/wine_builds/releases/download/PROTON_STEAM_10-0-3/PROTON_STEAM_10-0-3.tar.xz","size_human":"264.5 MiB"},
@@ -791,6 +799,15 @@
     {"name":"proton-cachyos-9.0-20241206-slr-x86_64_v3","url":"https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-9.0-20241206-slr/proton-cachyos-9.0-20241206-slr-x86_64_v3.tar.xz","size_human":"260.2 MiB"}
   ],
   "proton_wineland": [
+    {"name":"proton-wineland-11.0-20261114-x86_64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261114/proton-wineland-11.0-20261114-x86_64.tar.xz","size_human":"348.2 MiB"},
+    {"name":"proton-wineland-11.0-20261114-x86_64_v3","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261114/proton-wineland-11.0-20261114-x86_64_v3.tar.xz","size_human":"348.0 MiB"},
+    {"name":"proton-wineland-11.0-20261114-x86_64_wow64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261114/proton-wineland-11.0-20261114-x86_64_wow64.tar.xz","size_human":"323.8 MiB"},
+    {"name":"proton-wineland-11.0-20261106-x86_64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261106/proton-wineland-11.0-20261106-x86_64.tar.xz","size_human":"340.2 MiB"},
+    {"name":"proton-wineland-11.0-20261106-x86_64_v3","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261106/proton-wineland-11.0-20261106-x86_64_v3.tar.xz","size_human":"340.1 MiB"},
+    {"name":"proton-wineland-11.0-20261106-x86_64_wow64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261106/proton-wineland-11.0-20261106-x86_64_wow64.tar.xz","size_human":"316.3 MiB"},
+    {"name":"proton-wineland-11.0-20261103-x86_64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261103/proton-wineland-11.0-20261103-x86_64.tar.xz","size_human":"338.8 MiB"},
+    {"name":"proton-wineland-11.0-20261103-x86_64_v3","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261103/proton-wineland-11.0-20261103-x86_64_v3.tar.xz","size_human":"339.0 MiB"},
+    {"name":"proton-wineland-11.0-20261103-x86_64_wow64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261103/proton-wineland-11.0-20261103-x86_64_wow64.tar.xz","size_human":"316.3 MiB"},
     {"name":"proton-wineland-11.0-20261024-x86_64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261024/proton-wineland-11.0-20261024-x86_64.tar.xz","size_human":"347.4 MiB"},
     {"name":"proton-wineland-11.0-20261024-x86_64_v3","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261024/proton-wineland-11.0-20261024-x86_64_v3.tar.xz","size_human":"347.5 MiB"},
     {"name":"proton-wineland-11.0-20261024-x86_64_wow64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20261024/proton-wineland-11.0-20261024-x86_64_wow64.tar.xz","size_human":"324.7 MiB"},
@@ -829,6 +846,7 @@
     {"name":"proton-wineland-11.0-20260908-x86_64_wow64","url":"https://github.com/nanomatters/proton-salkim/releases/download/wineland-11.0-20260908/proton-wineland-11.0-20260908-x86_64_wow64.tar.xz","size_human":"317.7 MiB"}
   ],
   "proton_dw": [
+    {"name":"dwproton-11.0-17-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-17/dwproton-11.0-17-x86_64.tar.xz","size_human":"326.1 MiB"},
     {"name":"dwproton-11.0-16-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-16/dwproton-11.0-16-x86_64.tar.xz","size_human":"323.8 MiB"},
     {"name":"dwproton-11.0-15-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-15/dwproton-11.0-15-x86_64.tar.xz","size_human":"323.8 MiB"},
     {"name":"dwproton-11.0-14-x86_64","url":"https://github.com/dawn-winery/dwproton-mirror/releases/download/dwproton-11.0-14/dwproton-11.0-14-x86_64.tar.xz","size_human":"323.1 MiB"},

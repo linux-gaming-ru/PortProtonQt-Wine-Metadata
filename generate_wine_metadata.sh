@@ -168,7 +168,7 @@ create_linux_metadata() {
 }
 
 # Получает список доступных в облаке сборок Linux Gaming для proton_lg секции.
-# Оставляет только ожидаемые типы и версии >= 8, чтобы не включать ломающие префикс версии.
+# Допускает любые сборки PROTON_LG/WINE_LG; для остальных семейств оставляет версии >= 8.
 fetch_cloud_lg_allowlist() {
     local output_file="$1"
     local cloud_url="https://cloud.linux-gaming.ru/"
@@ -176,9 +176,9 @@ fetch_cloud_lg_allowlist() {
     log "Получение списка PROTON/WINE LG из $cloud_url..."
 
     if ! curl -fsSL "$cloud_url" | \
-        grep -oE "portproton/(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_[^'\"<>]+\\.tar\\.xz" | \
-        sed -E 's#^portproton/##; s#\.tar\.xz$##' | \
-        grep -E "_(8|9|[1-9][0-9])([.-]|$)" | \
+        grep -oE "href=['\"](portproton/)?(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_[^'\"<>]+\\.tar\\.xz['\"]" | \
+        sed -E "s#^href=['\"](portproton/)?##; s#\\.tar\\.xz['\"]\$##" | \
+        grep -E "^((PROTON_LG|WINE_LG)_.+|(PROTON_STEAM|WINE_HYP)_(8|9|[1-9][0-9])([.-]|$))" | \
         sort -u > "$output_file"; then
         log "Ошибка при получении списка версий с $cloud_url"
         return 1
@@ -207,8 +207,8 @@ fetch_cloud_lg_allowlist "$TEMP_DIR/cloud_lg_allowlist.txt"
 jq -R -s 'split("\n") | map(select(length > 0))' "$TEMP_DIR/cloud_lg_allowlist.txt" > "$TEMP_DIR/cloud_lg_allowlist.json"
 create_wine_entries "$TEMP_DIR/proton_lg_releases.json" "\\.tar\\.xz$" "plugins" | \
     jq -c '
-        # Защитный regex: только нужные семейства и только версии >=8.
-        select(.name | test("^(PROTON_LG|WINE_LG|PROTON_STEAM|WINE_HYP)_(8|9|[1-9][0-9])([.-]|$)"))
+        # Любые LG; для PROTON_STEAM/WINE_HYP только версии >=8.
+        select(.name | test("^((PROTON_LG|WINE_LG)_.+|(PROTON_STEAM|WINE_HYP)_(8|9|[1-9][0-9])([.-]|$))"))
     ' | \
     jq -c --slurpfile allow "$TEMP_DIR/cloud_lg_allowlist.json" '
         # Финальный фильтр: в JSON остаются только версии, реально присутствующие в cloud.
